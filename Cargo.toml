@@ -1,0 +1,8 @@
+[package]
+name = "sponge"
+version = "0.1.0"
+authors = ["raskad <32105367+raskad@users.noreply.github.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.7.3"
