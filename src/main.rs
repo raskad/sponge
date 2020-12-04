@@ -14,20 +14,14 @@ fn to_sponge(s: &str) -> String {
     let mut r = String::new();
     let mut last_lower = Uniform::from(0..2).sample(&mut rng).eq(&1);
     for c in s.chars() {
-        let lower: bool;
-        if last_lower {
-            if d100.sample(&mut rng) == 0 {
-                lower = true;
-            } else {
-                lower = false;
-            }
-        } else {
-            if d100.sample(&mut rng) != 0 {
-                lower = true;
-            } else {
-                lower = false;
-            }
-        }
+        let lower = match d100.sample(&mut rng) {
+            0 if last_lower => true,
+            0 if !last_lower => false,
+            _ if last_lower => false,
+            _ if !last_lower => true,
+            _ => true,
+        };
+
         if lower {
             for c2 in c.to_lowercase() {
                 &r.push(c2);
